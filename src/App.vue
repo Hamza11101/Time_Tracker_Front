@@ -7,15 +7,7 @@
     <button class="StartButton" @click="play">start new</button>
     <a class="timer">{{ zfill(hour) }}:{{ zfill(min) }}:{{ zfill(sec) }}</a>
   </div>
-
-  <div>
-    <span class="periodNumber"></span>
-    <span></span>
-    <span></span>
-  </div>
-
-
-    <div class="cla1" v-for="period in periods" :key="period.id">
+ <div class="cla1" v-for="period in periods" :key="period.id">
       <span class="periods">period {{ period.id}} </span>
       <span class="timing">{{ period.StarTime }}-{{ period.EndTime }}</span>
       <span class="StayedTime">{{ period.PeriodTime }}</span>
@@ -38,13 +30,13 @@ export default defineComponent({
       min: 0,
       hour: 0,
       stope: false,
-      timer: null,
+     timer: null,
       intervalList: [],
       startedat: "",
       finishedat: "",
       PeriodTime: "",
       periods: null,
-      total: "00:00:00",
+      total: "00:00:00",   
     };
   },
   created() {
@@ -89,9 +81,9 @@ export default defineComponent({
       var hours: any = new Date().getHours().toString().padStart(2, "0");
       var minutes: any = new Date().getMinutes().toString().padStart(2, "0");
       this.startedat = "" + hours + ":" + minutes;
-      console.log(this.startedat);
+      
       this.stope = false;
-      if (this.timer === null) {
+      if (this.timer == null) {
         this.playing();
         var time = setInterval(() => this.playing(), 1000);
       } else {
@@ -117,7 +109,7 @@ export default defineComponent({
       var hours: any = new Date().getHours().toString().padStart(2, "0");
       var minutes: any = new Date().getMinutes().toString().padStart(2, "0");
       this.finishedat = "" + hours + ":" + minutes;
-      console.log(this.finishedat);
+      
 
       this.stope = true;
       if (this.timer !== null) {
@@ -148,7 +140,7 @@ export default defineComponent({
     await  http.get("/time-tracker/time/").then((res) => {
         let result = res.data.Tims.sort().reverse();
         this.periods=result
-        console.log(this.periods);
+        
         
         let arr = res.data.Tims.map((s: any) => {
           return s.PeriodTime;
@@ -174,7 +166,7 @@ export default defineComponent({
           }
         }
       }
-      console.log(sum);
+      
       this.total = sum;
     },
   },
@@ -227,7 +219,15 @@ export default defineComponent({
   float: right;
 }
 .Total {
-  float: right;
+  margin-top:10px ;
   font-weight: bold;
+   display: flex;
+  justify-content: right;
+  margin-right: 10%;
+  font-size: 20px;
+  border-color: gray;
+border-style: solid ;
+border-width: 1px 0px 1px 0px;
+margin-left:10% ;
 }
 </style>
